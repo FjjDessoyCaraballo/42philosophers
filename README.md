@@ -9,7 +9,7 @@ This project main objective is to create threads and, consequentially, to do mul
 ## Usage:
 ```
 1. Make the files with "make all";
-2. Run the program with ```./philo``` and entering four/five arguments:
+2. Run the program with ./philo and entering four/five arguments:
 	2.1. Number of philosophers (max 200);
 	2.2. Time to die;
 	2.3. Time to eat;
