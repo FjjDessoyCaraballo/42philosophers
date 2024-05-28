@@ -7,6 +7,7 @@ This project main objective is to create threads and, consequentially, to do mul
 - Multithreading: <PLACEHOLDER>
 
 ## Usage:
+```
 1. Make the files with "make all";
 2. Run the program with ```./philo``` and entering four/five arguments:
 	2.1. Number of philosophers (max 200);
@@ -15,7 +16,7 @@ This project main objective is to create threads and, consequentially, to do mul
 	2.4. Time to sleep;
 	2.5. Number of times each philosopher must eat (optional);
 3. Observe time stamps;
-
+```
 ## Result:
 - Status: <span style="color:red">Incomplete</span>
 - Result: <span style="color:red">0%</span>
