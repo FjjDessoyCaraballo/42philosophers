@@ -6,7 +6,7 @@
 /*   By: fdessoy- <fdessoy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:05:32 by fdessoy-          #+#    #+#             */
-/*   Updated: 2024/05/28 09:57:52 by fdessoy-         ###   ########.fr       */
+/*   Updated: 2024/06/28 16:29:22 by fdessoy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,63 @@ size_t	what_time_is_it(void)
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
-void	struct_printer(t_data_list data)
+void	clearing(t_data **data, t_overseer *overseer)
 {
-	// printf("Philosophers: %i\n", data.no_of_philosophers);
-	// printf("death time : %i\n", data.death_time);
-	// printf("feed time  : %i\n", data.feed_time);
-	// printf("sleep time : %i\n", data.sleep_time);
-	// printf("start time : %zu\n", data.start_time);
-	printf("ID         : %i\n", data.philo_id);
-	return ;
+	int	i;
+
+	i = 0;
+
+	nuka_cola(NULL, overseer, data);
+	while (i < overseer->no_of_philosophers)
+	{
+		
+		if (pthread_join(data[i]->p_thread, NULL) != 0)
+			nuka_cola("Thread join failed\n", overseer, data);
+		i++;
+	}
+	i = 0;
+	while (data[i])
+	{
+		free(data[i]->right_fork);
+		free(data[i]);
+		i++;
+	}
+	free(data);
+	data = NULL;
+	free(overseer->mic_lock);
+	free(overseer->meal_lock);
+	free(overseer->death_lock);
+	free(overseer);
+
+}
+
+void	nuka_cola(char *str, t_overseer *overseer, t_data **data)
+{
+	int	i;
+
+	i = 0;
+	if (str)
+		ft_putstr_fd(str, 2);
+	while (i < overseer->no_of_philosophers)
+	{
+		pthread_mutex_destroy(data[i]->right_fork);
+		i++;
+	}
+	pthread_mutex_destroy(overseer->mic_lock);
+	pthread_mutex_destroy(overseer->meal_lock);
+	pthread_mutex_destroy(overseer->death_lock);
+}
+
+void	ft_usleep(size_t milisecs, t_overseer *overseer)
+{
+	size_t	start;
+
+	start = what_time_is_it();
+	while ((what_time_is_it() - start) < milisecs)
+	{
+		if (overseer->death_flag == 1)
+			return ;
+		else
+			usleep(500);
+	}
 }

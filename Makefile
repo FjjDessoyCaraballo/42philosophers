@@ -1,38 +1,36 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    makefile                                           :+:      :+:    :+:    #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lstorey <lstorey@student.hive.fi>          +#+  +:+       +#+         #
+#    By: fdessoy- <fdessoy-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/05/17 14:32:21 by lstorey           #+#    #+#              #
-#    Updated: 2024/05/27 10:25:08 by lstorey          ###   ########.fr        #
+#    Created: 2024/05/30 10:11:18 by fdessoy-          #+#    #+#              #
+#    Updated: 2024/06/20 14:17:11 by fdessoy-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= 	philo
 CC			= 	cc
-FLAGS		= 	#-Wall -Werror -Wextra -g
+FLAGS		= 	-Wall -Werror -Wextra -g -pedantic 
 LIBS 		= 	philo.h
 SRC 		=	philo.c\
-				error_printer.c\
+				printer.c\
 				parsing.c\
-				utils.c
+				utils.c\
+				struct_utils.c\
+				main.c\
+				routine.c
 		
 OBJ  		= 	$(SRC:.c=.o) 
 
-$(NAME)		:	$(OBJ) 
-
+$(NAME)		:	$(OBJ)
 				cc $(FLAGS) $(OBJ) -o $(NAME)
 				
 %.o			:	%.c
-				@CC $(FLAGS) -c $< -o $@
-				
-				
-all			:	$(NAME)
-
-san			:
-				$(CC) $(FLAGS) -g -fsanitize=address -static-libsan $(SRC) -o san 
+				$(CC) $(FLAGS) -c $< -o $@
+					
+all			:	$(NAME) 
 
 clean		:	
 				rm -f $(OBJ)
@@ -45,4 +43,4 @@ fclean		:	clean
 
 re			:	fclean all
 
-.PHONY 		: all clean fclean re 
+.PHONY 		: 	all clean fclean re 

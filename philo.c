@@ -5,101 +5,91 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fdessoy- <fdessoy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/21 15:48:48 by lstorey           #+#    #+#             */
-/*   Updated: 2024/05/28 10:19:16 by fdessoy-         ###   ########.fr       */
+/*   Created: 2024/06/11 12:26:25 by fdessoy-          #+#    #+#             */
+/*   Updated: 2024/06/28 17:24:15 by fdessoy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char **argv)
-{
-	t_data_list	data;
-
-	if (argc == 5)
-	{
-		parsing(argv);
-		struct_clearer(&data);
-		struct_filler(&data, argv);
-		// struct_printer(data);
-		philosphize(&data);
-	}
-	else
-		err_exit(2);
-	return (0);
-}
-
-void	struct_clearer(t_data_list *data)
-{
-	data->no_of_philosophers = 0;
-	data->death_time = 0;
-	data->feed_time = 0;
-	data->sleep_time = 0;
-	data->times_to_eat = 0;
-	data->start_time = 0;
-	data->philo_id = 0;
-}
-
-void	struct_filler(t_data_list *data, char **argv)
-{
-	int	i;
-
-	i = 0;
-	data = (t_data_list *)malloc(sizeof(t_data_list) * ft_atoi(argv[1]));
-	while (i < ft_atoi(argv[1]))
-	{
-		data[i].no_of_philosophers = ft_atoi(argv[1]);
-		if (data[i].no_of_philosophers > MAX_PHILOS ||
-			data->no_of_philosophers <= 0)
-			err_exit(1);
-		data[i].death_time = ft_atoi(argv[2]);
-		if (data[i].death_time <= 0)
-			err_exit(3);
-		data[i].feed_time = ft_atoi(argv[3]);
-		if (data[i].feed_time <= 0)
-			err_exit(4);
-		data[i].sleep_time = ft_atoi(argv[4]);
-		if (data[i].sleep_time <= 0)
-			err_exit(5);
-		data[i].start_time = what_time_is_it();
-		data[i].philo_id = i + 1;
-		struct_printer(data[i]);
-		i++;
-	// if (argv[5])
-	// {
-	// 	data->times_to_eat = ft_atoi(argv[5]);
-	// 	if (data->times_to_eat < 0)
-	// 		err_exit(7);
-	// }
-	}
-}
-
-void	philosphize(t_data_list *data)
+void	philosophize(t_data **data, t_overseer *overseer)
 {
 	int			i;
 
 	i = 0;
-	while (i < data->no_of_philosophers)
+	overseer->start_time = what_time_is_it();
+	while (i < overseer->no_of_philosophers)
 	{
-		pthread_create(&data[i].thread, NULL, &dinner_for_one, &data[i]);
-		// printf("%i\n", data->no_of_philosophers);
+		data[i]->last_time_eaten = overseer->start_time;
+		data[i]->start_time = what_time_is_it();
+		if (pthread_create(&data[i]->p_thread, NULL,
+				&dinner_for_x, data[i]) != 0)
+			nuka_cola("Thread creation failed\n", overseer, data);
 		i++;
 	}
-	i = 0;
-	while (i < data->no_of_philosophers)
+	monitoring(overseer);
+}
+int	monitoring(t_overseer *os)
+{
+	int			index;
+
+	ft_usleep(3, os);
+	while (1)
 	{
-		pthread_join(data[i].thread, NULL);
-		i++;
+		index = 0;
+		while (index < os->no_of_philosophers)
+		{
+			if (dying(os, os->data[index]) == 0)
+			{
+				pthread_mutex_unlock(os->mic_lock);
+				pthread_mutex_unlock(os->meal_lock);
+				pthread_mutex_unlock(os->death_lock);				
+				return (1);
+			}
+			index++;
+		}
 	}
-	exit(1);
+	return (1);
 }
 
-void	*dinner_for_one(void *data)
+void	*dinner_for_x(void *data)
 {
-	t_data_list	*p_data;
-	void	*butt;
+	t_data			*p_data;
 
-	p_data = (t_data_list*)data;
-	struct_printer(*p_data);
-	return (butt);
+	p_data = (t_data *)data;
+	if (dinner_for_one(p_data, p_data->overseer) == 0)
+		return (NULL);
+	if (p_data->philo_id % 2 == 0)
+	{
+		microphone(p_data, p_data->overseer, "is thinking");
+		ft_usleep(p_data->overseer->feed_time / 10, p_data->overseer);
+	}
+	while (1)
+	{
+		if (eat_pray_love(p_data, p_data->overseer) == 0
+			|| p_data->overseer->can_i_print == 1)
+			break ;
+	}
+	drop_mic_forks(p_data);
+	return (NULL);
+}
+
+void	drop_mic_forks(t_data *data)
+{
+	pthread_mutex_unlock(data->right_fork);
+	pthread_mutex_unlock(data->left_fork);
+	pthread_mutex_unlock(data->overseer->mic_lock);
+	pthread_mutex_unlock(data->overseer->meal_lock);
+	pthread_mutex_unlock(data->overseer->death_lock);
+}
+
+int	dinner_for_one(t_data *data, t_overseer *overseer)
+{
+	if (overseer->no_of_philosophers == 1)
+	{
+		ft_usleep(overseer->death_time, overseer);
+		microphone(data, overseer, "died");
+		return (0);
+	}
+	return (1);
 }

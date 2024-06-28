@@ -6,44 +6,51 @@
 /*   By: fdessoy- <fdessoy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:01:07 by lstorey           #+#    #+#             */
-/*   Updated: 2024/05/28 10:23:00 by fdessoy-         ###   ########.fr       */
+/*   Updated: 2024/06/27 11:53:11 by fdessoy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	parsing(char **argv)
+int	parsing(char **argv)
 {
-	int i;
-	int j;
-
-	i = 1;
-	j = 0;
-	while (argv[i])
+	if (no_characters(argv) == 0)
 	{
-		while (argv[i][j])
-		{
-			if (ft_atoi(argv[1]) < 1)
-				err_exit(6);
-			else if (ft_atoi(argv[2]) < 1)
-				err_exit(6);
-			else if (ft_atoi(argv[3]) < 1)
-				err_exit(6);
-			else if (ft_atoi(argv[4]) < 1)
-				err_exit(6);
-			if (ft_isdigit(argv[i][j]) == 0)
-				err_exit(6);
-			j++;
-		}
-		j = 0;
-		i++;
+		ft_putstr_fd("Error: must be an integer\n", 2);
+		return (0);
 	}
+	if (ft_atoi(argv[1]) < 1 || ft_atoi(argv[1]) > MAX_PHILOS ||
+	ft_atoi(argv[2]) < 1 || ft_atoi(argv[3]) < 1 || ft_atoi(argv[4]) < 1)
+	{
+		ft_putstr_fd("Error: must be positive and above zero\n", 2);
+		return (0);
+	}
+	else if (argv[5])
+	{
+		if (ft_atoi(argv[5]) < 0)
+		{
+			ft_putstr_fd("Error: must be positive and above zero\n", 2);
+			return (0);
+		}
+	}
+	return (1);
 }
 
-int	ft_isdigit(int c)
+int		no_characters(char **argv)
 {
-	if (c > 47 && c < 58)
-		return (1);
-	else
-		return (0);
+	int i = 1;
+	int j = 0;
+	
+	while (argv[i])
+	{
+		j = 0;
+		while (argv[i][j])
+		{
+			if (!(argv[i][j] >= '0' && argv[i][j] <= '9'))
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	return (1);
 }
