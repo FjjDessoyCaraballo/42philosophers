@@ -6,7 +6,7 @@
 /*   By: fdessoy- <fdessoy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 12:26:25 by fdessoy-          #+#    #+#             */
-/*   Updated: 2024/07/01 15:08:28 by fdessoy-         ###   ########.fr       */
+/*   Updated: 2024/07/01 15:11:54 by fdessoy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	philosophize(t_data **data, t_overseer *overseer)
 
 	i = 0;
 	overseer->start_time = what_time_is_it();
-	while (i < overseer->no_of_philosophers)
+	while (i < overseer->no_of_philo)
 	{
 		data[i]->last_time_eaten = overseer->start_time;
 		data[i]->start_time = what_time_is_it();
@@ -38,7 +38,7 @@ int	monitoring(t_overseer *os)
 	while (1)
 	{
 		index = 0;
-		while (index < os->no_of_philosophers)
+		while (index < os->no_of_philo)
 		{
 			if (dying(os, os->data[index]) == 0
 				|| full_belly(os, os->data) == 0)
@@ -75,7 +75,7 @@ void	*dinner_for_x(void *data)
 
 int	dinner_for_one(t_data *data, t_overseer *overseer)
 {
-	if (overseer->no_of_philosophers == 1)
+	if (overseer->no_of_philo == 1)
 	{
 		ft_usleep(overseer->death_time, overseer);
 		microphone(data, overseer, "died");

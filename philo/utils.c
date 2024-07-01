@@ -6,7 +6,7 @@
 /*   By: fdessoy- <fdessoy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:05:32 by fdessoy-          #+#    #+#             */
-/*   Updated: 2024/07/01 12:28:40 by fdessoy-         ###   ########.fr       */
+/*   Updated: 2024/07/01 15:11:54 by fdessoy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	clearing(t_data **data, t_overseer *overseer)
 
 	i = 0;
 
-	while (i < overseer->no_of_philosophers)
+	while (i < overseer->no_of_philo)
 	{
 		
 		if (pthread_join(data[i]->p_thread, NULL) != 0)
@@ -83,7 +83,7 @@ void	nuka_cola(char *str, t_overseer *overseer, t_data **data)
 	i = 0;
 	if (str)
 		ft_putstr_fd(str, 2);
-	while (i < overseer->no_of_philosophers)
+	while (i < overseer->no_of_philo)
 	{
 		pthread_mutex_destroy(data[i]->right_fork);
 		i++;

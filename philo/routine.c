@@ -6,7 +6,7 @@
 /*   By: fdessoy- <fdessoy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 14:56:51 by fdessoy-          #+#    #+#             */
-/*   Updated: 2024/07/01 15:10:17 by fdessoy-         ###   ########.fr       */
+/*   Updated: 2024/07/01 15:11:54 by fdessoy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ int	full_belly(t_overseer *overseer, t_data **data)
 
 	index = 0;
 	count = 0;
-	while (index < overseer->no_of_philosophers)
+	while (index < overseer->no_of_philo)
 	{
 		if (data[index]->times_eaten >= overseer->times_to_eat)
 			count++;
 		index++;
 	}
-	if (count >= overseer->no_of_philosophers)
+	if (count >= overseer->no_of_philo)
 	{
 		pthread_mutex_lock(overseer->meal_lock);
 		overseer->meal_flag = 1;
