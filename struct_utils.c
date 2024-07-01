@@ -6,7 +6,7 @@
 /*   By: fdessoy- <fdessoy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 13:13:46 by fdessoy-          #+#    #+#             */
-/*   Updated: 2024/06/28 17:14:55 by fdessoy-         ###   ########.fr       */
+/*   Updated: 2024/06/28 20:02:55 by fdessoy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int	overseer_filler(t_overseer *overseer, char **argv)
 		overseer->times_to_eat = INT_MAX;
 	overseer->can_i_print = 0;
 	overseer->death_flag = 0;
+	overseer->meal_flag = 0;
 	overseer->mic_lock = malloc(sizeof(t_mtx));
 	if (!overseer->mic_lock)
 		return (0);

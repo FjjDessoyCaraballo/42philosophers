@@ -6,7 +6,7 @@
 /*   By: fdessoy- <fdessoy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:05:32 by fdessoy-          #+#    #+#             */
-/*   Updated: 2024/06/28 16:29:22 by fdessoy-         ###   ########.fr       */
+/*   Updated: 2024/07/01 12:28:40 by fdessoy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	clearing(t_data **data, t_overseer *overseer)
 
 	i = 0;
 
-	nuka_cola(NULL, overseer, data);
 	while (i < overseer->no_of_philosophers)
 	{
 		
@@ -60,6 +59,7 @@ void	clearing(t_data **data, t_overseer *overseer)
 			nuka_cola("Thread join failed\n", overseer, data);
 		i++;
 	}
+	nuka_cola(NULL, overseer, data);
 	i = 0;
 	while (data[i])
 	{

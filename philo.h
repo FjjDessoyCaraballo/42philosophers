@@ -6,7 +6,7 @@
 /*   By: fdessoy- <fdessoy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:43:13 by lstorey           #+#    #+#             */
-/*   Updated: 2024/06/28 16:44:41 by fdessoy-         ###   ########.fr       */
+/*   Updated: 2024/06/28 20:02:26 by fdessoy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_overseer
 	t_data				**data;
 	int					times_to_eat;
 	int					death_flag;
+	int					meal_flag;
 	int					can_i_print;
 	size_t				start_time;
 	t_mtx				*meal_lock;
@@ -75,6 +76,7 @@ int			microphone(t_data *data, t_overseer *overseer, char *action);
 
 /*					routine.c						*/
 int			dying(t_overseer *overseer, t_data *data);
+int			full_belly(t_overseer *overseer, t_data **data);
 int			eat_pray_love(t_data *data, t_overseer *overseer);
 int			try_pick_fork(t_data *data, t_overseer *overseer);
 
