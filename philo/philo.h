@@ -6,7 +6,7 @@
 /*   By: fdessoy- <fdessoy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:43:13 by lstorey           #+#    #+#             */
-/*   Updated: 2024/07/01 15:16:23 by fdessoy-         ###   ########.fr       */
+/*   Updated: 2024/07/01 16:01:09 by fdessoy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,10 @@
 
 /* structs */
 typedef pthread_mutex_t	t_mtx;
-typedef struct s_data t_data;
+typedef struct s_data	t_data;
 
 typedef struct s_overseer
 {
-	pthread_t			o_thread;
 	int					no_of_philo;
 	size_t				death_time;
 	size_t				feed_time;

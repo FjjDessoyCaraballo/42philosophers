@@ -6,7 +6,7 @@
 /*   By: fdessoy- <fdessoy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:05:32 by fdessoy-          #+#    #+#             */
-/*   Updated: 2024/07/01 15:11:54 by fdessoy-         ###   ########.fr       */
+/*   Updated: 2024/07/01 16:01:58 by fdessoy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ size_t	what_time_is_it(void)
 {
 	struct timeval	time;
 
-	if(gettimeofday(&time, NULL) == -1)
+	if (gettimeofday(&time, NULL) == -1)
 		ft_putstr_fd(ERR_TIME, 2);
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
@@ -51,10 +51,8 @@ void	clearing(t_data **data, t_overseer *overseer)
 	int	i;
 
 	i = 0;
-
 	while (i < overseer->no_of_philo)
 	{
-		
 		if (pthread_join(data[i]->p_thread, NULL) != 0)
 			nuka_cola("Thread join failed\n", overseer, data);
 		i++;
@@ -73,7 +71,6 @@ void	clearing(t_data **data, t_overseer *overseer)
 	free(overseer->meal_lock);
 	free(overseer->death_lock);
 	free(overseer);
-
 }
 
 void	nuka_cola(char *str, t_overseer *overseer, t_data **data)
