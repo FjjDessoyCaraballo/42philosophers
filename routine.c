@@ -6,7 +6,7 @@
 /*   By: fdessoy- <fdessoy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 14:56:51 by fdessoy-          #+#    #+#             */
-/*   Updated: 2024/07/01 12:19:10 by fdessoy-         ###   ########.fr       */
+/*   Updated: 2024/07/01 14:32:18 by fdessoy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	full_belly(t_overseer *overseer, t_data **data)
 	}
 	if (count >= overseer->no_of_philosophers)
 	{
-		// printf("count is: %i\n", count);
 		pthread_mutex_lock(overseer->meal_lock);
 		overseer->meal_flag = 1;
 		pthread_mutex_unlock(overseer->meal_lock);
@@ -49,13 +48,11 @@ int dying(t_overseer *overseer, t_data *data)
 	if ((what_time_is_it() - data->last_time_eaten >= overseer->death_time)
 		&& overseer->can_i_print == 0)
 	{
-		if (pthread_mutex_lock(overseer->death_lock) != 0)
-			return (0);
+		pthread_mutex_lock(overseer->death_lock);
 		overseer->death_flag = 1;
 		microphone(data, overseer, "died");
 		overseer->can_i_print = 1;
-		if (pthread_mutex_unlock(overseer->death_lock) != 0)
-			return (0);
+		pthread_mutex_unlock(overseer->death_lock);
 		return (0);
 	}
 	if (overseer->death_flag == 1 || overseer->meal_flag == 1)
@@ -97,16 +94,19 @@ int	try_pick_fork(t_data *data, t_overseer *overseer)
 		if (!pthread_mutex_lock(data->right_fork))
 		{
 			i++;
-			microphone(data, overseer, "has taken a fork");
+			if (microphone(data, overseer, "has taken a fork") == 0) //added the if today
+				return (0);
 		}
 		if (!pthread_mutex_lock(data->left_fork))
 			i++;
 		if (i == 2)
 		{
-			microphone(data, overseer, "has taken a fork");
+			if (microphone(data, overseer, "has taken a fork") == 0)
+				return (0);
 			return (1);
 		}
 		else
 			ft_usleep(100, overseer);
 	}
+	return (0);
 }

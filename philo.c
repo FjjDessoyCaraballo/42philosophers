@@ -6,7 +6,7 @@
 /*   By: fdessoy- <fdessoy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 12:26:25 by fdessoy-          #+#    #+#             */
-/*   Updated: 2024/07/01 12:24:50 by fdessoy-         ###   ########.fr       */
+/*   Updated: 2024/07/01 14:34:55 by fdessoy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,9 @@ int	monitoring(t_overseer *os)
 		index = 0;
 		while (index < os->no_of_philosophers)
 		{
-			// printf("shoutout from monitoring\n");
 			if (dying(os, os->data[index]) == 0
-			|| full_belly(os, os->data) == 0)
-			{
-				pthread_mutex_unlock(os->mic_lock);
-				pthread_mutex_unlock(os->meal_lock);
-				pthread_mutex_unlock(os->death_lock);				
+			|| full_belly(os, os->data) == 0)			
 				return (1);
-			}
 			index++;
 		}
 	}
@@ -83,8 +77,8 @@ void	drop_mic_forks(t_data *data)
 	pthread_mutex_unlock(data->right_fork);
 	// pthread_mutex_unlock(data->left_fork);
 	pthread_mutex_unlock(data->overseer->mic_lock);
-	// pthread_mutex_unlock(data->overseer->meal_lock);
-	// pthread_mutex_unlock(data->overseer->death_lock);
+	pthread_mutex_unlock(data->overseer->meal_lock);
+	pthread_mutex_unlock(data->overseer->death_lock);
 }
 
 int	dinner_for_one(t_data *data, t_overseer *overseer)
