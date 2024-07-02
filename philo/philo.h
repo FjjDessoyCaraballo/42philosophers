@@ -6,7 +6,7 @@
 /*   By: fdessoy- <fdessoy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:43:13 by lstorey           #+#    #+#             */
-/*   Updated: 2024/07/01 16:01:09 by fdessoy-         ###   ########.fr       */
+/*   Updated: 2024/07/02 11:49:48 by fdessoy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int			microphone(t_data *data, t_overseer *overseer, char *action);
 /*					routine.c						*/
 int			dying(t_overseer *overseer, t_data *data);
 int			full_belly(t_overseer *overseer, t_data **data);
+int			check_flags(t_overseer *overseer);
 int			eat_pray_love(t_data *data, t_overseer *overseer);
 int			try_pick_fork(t_data *data, t_overseer *overseer);
 

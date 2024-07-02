@@ -6,7 +6,7 @@
 /*   By: fdessoy- <fdessoy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 12:26:25 by fdessoy-          #+#    #+#             */
-/*   Updated: 2024/07/01 15:11:54 by fdessoy-         ###   ########.fr       */
+/*   Updated: 2024/07/02 11:43:42 by fdessoy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,19 @@ void	*dinner_for_x(void *data)
 		microphone(p_data, p_data->overseer, "is thinking");
 		ft_usleep(p_data->overseer->feed_time / 10, p_data->overseer);
 	}
-	pthread_mutex_lock(p_data->overseer->meal_lock);
+	pthread_mutex_lock(p_data->overseer->death_lock);
 	while (p_data->overseer->death_flag != 1
 		|| p_data->overseer->meal_flag != 1)
 	{
-		pthread_mutex_unlock(p_data->overseer->meal_lock);
-		if (eat_pray_love(p_data, p_data->overseer) == 0
-			|| p_data->overseer->can_i_print == 1)
-			break ;
+		pthread_mutex_unlock(p_data->overseer->death_lock);
+		// pthread_mutex_lock(p_data->overseer->mic_lock);
+		if (eat_pray_love(p_data, p_data->overseer) == 0)
+			// || p_data->overseer->can_i_print == 1)
+			{
+				// pthread_mutex_unlock(p_data->overseer->mic_lock);
+				break ;
+			}
+		// pthread_mutex_unlock(p_data->overseer->mic_lock);
 	}
 	return (NULL);
 }
