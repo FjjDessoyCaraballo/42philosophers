@@ -6,7 +6,7 @@
 /*   By: fdessoy- <fdessoy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:43:13 by lstorey           #+#    #+#             */
-/*   Updated: 2024/07/02 12:32:17 by fdessoy-         ###   ########.fr       */
+/*   Updated: 2024/07/02 15:02:36 by fdessoy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ int			eat_pray_love(t_data *data, t_overseer *overseer);
 int			try_pick_fork(t_data *data, t_overseer *overseer);
 
 /*					flags.c							*/
-int check_full_flag(t_overseer *overseer);
-int	check_death_flag(t_overseer *overseer);
+int			check_full_flag(t_overseer *overseer);
+int			check_death_flag(t_overseer *overseer);
 
 /*					parsing.c						*/
 int			parsing(char **argv);

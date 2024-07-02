@@ -6,7 +6,7 @@
 /*   By: fdessoy- <fdessoy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 14:56:51 by fdessoy-          #+#    #+#             */
-/*   Updated: 2024/07/02 12:52:58 by fdessoy-         ###   ########.fr       */
+/*   Updated: 2024/07/02 15:08:04 by fdessoy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ int	full_belly(t_overseer *overseer, t_data **data)
 
 int	dying(t_overseer *overseer, t_data *data)
 {
-	if (check_death_flag(overseer) == 0
-		|| check_full_flag(overseer) == 0)
+	if (check_death_flag(overseer) == 0 || check_full_flag(overseer) == 0)
 		return (0);
 	if ((what_time_is_it() - data->last_time_eaten >= overseer->death_time)
 		&& overseer->can_i_print == 0)
@@ -52,16 +51,14 @@ int	dying(t_overseer *overseer, t_data *data)
 		pthread_mutex_unlock(overseer->mic_lock);
 		return (0);
 	}
-	if (check_death_flag(overseer) == 0
-		|| check_full_flag(overseer) == 0)
+	if (check_death_flag(overseer) == 0 || check_full_flag(overseer) == 0)
 		return (0);
 	return (1);
 }
 
 int	eat_pray_love(t_data *data, t_overseer *overseer)
 {
-	if (check_death_flag(overseer) == 0
-		|| check_full_flag(overseer) == 0)
+	if (check_death_flag(overseer) == 0 || check_full_flag(overseer) == 0)
 		return (0);
 	try_pick_fork(data, overseer);
 	pthread_mutex_lock(overseer->meal_lock);
@@ -70,7 +67,7 @@ int	eat_pray_love(t_data *data, t_overseer *overseer)
 	if (microphone(data, overseer, "is eating") == 0)
 	{
 		pthread_mutex_unlock(data->right_fork);
-		pthread_mutex_unlock(data->left_fork);	
+		pthread_mutex_unlock(data->left_fork);
 		return (0);
 	}
 	data->times_eaten += 1;
@@ -82,8 +79,7 @@ int	eat_pray_love(t_data *data, t_overseer *overseer)
 	ft_usleep(overseer->sleep_time, overseer);
 	if (microphone(data, overseer, "is thinking") == 0)
 		return (0);
-	if (check_death_flag(overseer) == 0
-		|| check_full_flag(overseer) == 0)
+	if (check_death_flag(overseer) == 0 || check_full_flag(overseer) == 0)
 		return (0);
 	return (1);
 }
