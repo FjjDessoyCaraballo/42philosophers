@@ -6,7 +6,7 @@
 #    By: fdessoy- <fdessoy-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/30 10:11:18 by fdessoy-          #+#    #+#              #
-#    Updated: 2024/07/01 15:40:07 by fdessoy-         ###   ########.fr        #
+#    Updated: 2024/07/02 12:31:34 by fdessoy-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRC 		=	philo.c\
 				utils.c\
 				struct_utils.c\
 				main.c\
+				flags.c\
 				routine.c
 
 OBJ  		= 	$(SRC:.c=.o) 

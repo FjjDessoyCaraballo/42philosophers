@@ -6,7 +6,7 @@
 /*   By: fdessoy- <fdessoy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:05:32 by fdessoy-          #+#    #+#             */
-/*   Updated: 2024/07/02 11:55:32 by fdessoy-         ###   ########.fr       */
+/*   Updated: 2024/07/02 12:41:14 by fdessoy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,17 +97,9 @@ void	ft_usleep(size_t milisecs, t_overseer *overseer)
 	start = what_time_is_it();
 	while ((what_time_is_it() - start) < milisecs)
 	{
-		pthread_mutex_lock(overseer->death_lock);
 		if (overseer->death_flag == 1)
-		{
-			pthread_mutex_unlock(overseer->death_lock);
 			return ;
-		}
 		else
-		{
-			pthread_mutex_unlock(overseer->death_lock);
 			usleep(500);
-		}
-		pthread_mutex_unlock(overseer->death_lock);
 	}
 }

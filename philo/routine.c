@@ -6,7 +6,7 @@
 /*   By: fdessoy- <fdessoy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 14:56:51 by fdessoy-          #+#    #+#             */
-/*   Updated: 2024/07/02 11:51:53 by fdessoy-         ###   ########.fr       */
+/*   Updated: 2024/07/02 12:38:33 by fdessoy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,9 @@ int	full_belly(t_overseer *overseer, t_data **data)
 
 int	dying(t_overseer *overseer, t_data *data)
 {
-	check_flags(overseer);
+	if (check_death_flag(overseer) == 0
+		|| check_full_flag(overseer) == 0)
+		return (0);
 	if ((what_time_is_it() - data->last_time_eaten >= overseer->death_time)
 		&& overseer->can_i_print == 0)
 	{
@@ -50,39 +52,27 @@ int	dying(t_overseer *overseer, t_data *data)
 		pthread_mutex_unlock(overseer->mic_lock);
 		return (0);
 	}
-	check_flags(overseer);
-	return (1);
-}
-
-int	check_flags(t_overseer *overseer)
-{
-	pthread_mutex_lock(overseer->death_lock);
-	if (overseer->death_flag == 1)
-	{
-		pthread_mutex_unlock(overseer->death_lock);		
+	if (check_death_flag(overseer) == 0
+		|| check_full_flag(overseer) == 0)
 		return (0);
-	}
-	pthread_mutex_unlock(overseer->death_lock);
-	pthread_mutex_lock(overseer->meal_lock);
-	if (overseer->meal_flag == 1)
-	{
-		pthread_mutex_unlock(overseer->meal_lock);
-		return (0);
-	}
-	pthread_mutex_unlock(overseer->meal_lock);
 	return (1);
 }
 
 int	eat_pray_love(t_data *data, t_overseer *overseer)
 {
-	if (check_flags(overseer) == 0)
+	if (check_death_flag(overseer) == 0
+		|| check_full_flag(overseer) == 0)
 		return (0);
 	try_pick_fork(data, overseer);
 	pthread_mutex_lock(overseer->meal_lock);
 	data->last_time_eaten = what_time_is_it();
 	pthread_mutex_unlock(overseer->meal_lock);
 	if (microphone(data, overseer, "is eating") == 0)
+	{
+		pthread_mutex_unlock(data->right_fork);
+		pthread_mutex_unlock(data->left_fork);	
 		return (0);
+	}
 	data->times_eaten += 1;
 	ft_usleep(overseer->feed_time, overseer);
 	pthread_mutex_unlock(data->left_fork);
@@ -92,7 +82,8 @@ int	eat_pray_love(t_data *data, t_overseer *overseer)
 	ft_usleep(overseer->sleep_time, overseer);
 	if (microphone(data, overseer, "is thinking") == 0)
 		return (0);
-	if (check_flags(overseer) == 0)
+	if (check_death_flag(overseer) == 0
+		|| check_full_flag(overseer) == 0)
 		return (0);
 	return (1);
 }
