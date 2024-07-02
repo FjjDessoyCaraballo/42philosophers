@@ -6,7 +6,7 @@
 /*   By: fdessoy- <fdessoy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 13:05:32 by fdessoy-          #+#    #+#             */
-/*   Updated: 2024/07/02 12:41:14 by fdessoy-         ###   ########.fr       */
+/*   Updated: 2024/07/02 12:46:31 by fdessoy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,12 +94,12 @@ void	ft_usleep(size_t milisecs, t_overseer *overseer)
 {
 	size_t	start;
 
+	if (check_death_flag(overseer) == 0
+		|| check_full_flag(overseer) == 0)
+		return ;
 	start = what_time_is_it();
 	while ((what_time_is_it() - start) < milisecs)
 	{
-		if (overseer->death_flag == 1)
-			return ;
-		else
 			usleep(500);
 	}
 }

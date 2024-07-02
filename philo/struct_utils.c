@@ -6,7 +6,7 @@
 /*   By: fdessoy- <fdessoy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 13:13:46 by fdessoy-          #+#    #+#             */
-/*   Updated: 2024/07/01 15:13:04 by fdessoy-         ###   ########.fr       */
+/*   Updated: 2024/07/02 12:47:05 by fdessoy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int	struct_filler(t_data **data, t_overseer *overseer, char **argv)
 		if (!data[i]->right_fork)
 			return (0);
 		pthread_mutex_init(data[i]->right_fork, NULL);
-		pthread_mutex_unlock(data[i]->right_fork);
 		i++;
 	}
 	fork_me(data, overseer);
