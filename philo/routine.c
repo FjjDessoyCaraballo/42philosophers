@@ -6,7 +6,7 @@
 /*   By: fdessoy- <fdessoy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 14:56:51 by fdessoy-          #+#    #+#             */
-/*   Updated: 2024/07/03 12:07:44 by fdessoy-         ###   ########.fr       */
+/*   Updated: 2024/07/03 17:53:48 by fdessoy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	eat_pray_love(t_data *data, t_overseer *overseer)
 	{
 		pthread_mutex_unlock(data->right_fork);
 		pthread_mutex_unlock(data->left_fork);
+		pthread_mutex_unlock(overseer->meal_lock);
 		return (0);
 	}
 	data->times_eaten += 1;
