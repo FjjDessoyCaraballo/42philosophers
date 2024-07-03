@@ -6,7 +6,7 @@
 /*   By: fdessoy- <fdessoy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 14:56:51 by fdessoy-          #+#    #+#             */
-/*   Updated: 2024/07/02 15:08:04 by fdessoy-         ###   ########.fr       */
+/*   Updated: 2024/07/03 10:49:06 by fdessoy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,15 @@ int	eat_pray_love(t_data *data, t_overseer *overseer)
 		return (0);
 	return (1);
 }
+
+// int sleep(t_data *data, t_overseer *overseer)
+// {
+	
+// }
+// int	thinking(t_data *data, t_overseer *overseer)
+// {
+	
+// }
 
 int	try_pick_fork(t_data *data, t_overseer *overseer)
 {

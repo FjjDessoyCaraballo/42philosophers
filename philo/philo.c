@@ -6,7 +6,7 @@
 /*   By: fdessoy- <fdessoy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 12:26:25 by fdessoy-          #+#    #+#             */
-/*   Updated: 2024/07/02 15:02:02 by fdessoy-         ###   ########.fr       */
+/*   Updated: 2024/07/03 10:42:18 by fdessoy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ void	*dinner_for_x(void *data)
 	}
 	pthread_mutex_lock(p_data->overseer->death_lock);
 	while (p_data->overseer->death_flag != 1
-		|| p_data->overseer->meal_flag != 1)
+		|| p_data->overseer->meal_flag != 1
+		|| p_data->overseer->can_i_print != 1)
 	{
 		pthread_mutex_unlock(p_data->overseer->death_lock);
 		if (eat_pray_love(p_data, p_data->overseer) == 0)
