@@ -6,7 +6,7 @@
 /*   By: fdessoy- <fdessoy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 14:56:51 by fdessoy-          #+#    #+#             */
-/*   Updated: 2024/07/03 11:51:49 by fdessoy-         ###   ########.fr       */
+/*   Updated: 2024/07/03 12:07:44 by fdessoy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ int	dying(t_overseer *overseer, t_data *data)
 	if ((what_time_is_it() - data->last_time_eaten >= overseer->death_time)
 		&& overseer->can_i_print == 0)
 	{
+		microphone(data, overseer, "died");
 		pthread_mutex_lock(overseer->death_lock);
 		overseer->death_flag = 1;
 		pthread_mutex_unlock(overseer->death_lock);
-		microphone(data, overseer, "died");
 		pthread_mutex_lock(overseer->mic_lock);
 		overseer->can_i_print = 1;
 		pthread_mutex_unlock(overseer->mic_lock);
