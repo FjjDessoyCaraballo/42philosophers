@@ -6,7 +6,7 @@
 /*   By: fdessoy- <fdessoy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 12:26:25 by fdessoy-          #+#    #+#             */
-/*   Updated: 2024/07/03 18:09:23 by fdessoy-         ###   ########.fr       */
+/*   Updated: 2024/07/05 13:39:18 by fdessoy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,34 +73,12 @@ int	dinner_for_one(t_data *data, t_overseer *overseer)
 {
 	if (overseer->no_of_philo == 1)
 	{
+		pthread_mutex_lock(data->right_fork);
+		microphone(data, overseer, "has taken a fork");
+		pthread_mutex_unlock(data->right_fork);
 		ft_usleep(overseer->death_time, overseer);
 		microphone(data, overseer, "died");
 		return (0);
 	}
 	return (1);
 }
-// This is the old dinner_for_x
-// void	*dinner_for_x(void *data)
-// {
-// 	t_data			*p_data;
-
-// 	p_data = (t_data *)data;
-// 	if (dinner_for_one(p_data, p_data->overseer) == 0)
-// 		return (NULL);
-// 	if (p_data->philo_id % 2 == 0)
-// 	{
-// 		microphone(p_data, p_data->overseer, "is thinking");
-// 		ft_usleep(p_data->overseer->feed_time / 10, p_data->overseer);
-// 	}
-// 	pthread_mutex_lock(p_data->overseer->death_lock);
-// 	while (p_data->overseer->death_flag != 1
-// 		|| p_data->overseer->meal_flag != 1
-// 		|| p_data->overseer->can_i_print != 1)
-// 	{
-// 		pthread_mutex_unlock(p_data->overseer->death_lock);
-// 		if (eat_pray_love(p_data, p_data->overseer) == 0)
-// 			break ;
-// 	}
-// 	pthread_mutex_unlock(p_data->overseer->death_lock);
-// 	return (NULL);
-// }
