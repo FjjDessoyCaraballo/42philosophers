@@ -6,7 +6,7 @@
 /*   By: fdessoy- <fdessoy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:43:13 by lstorey           #+#    #+#             */
-/*   Updated: 2024/07/02 15:02:36 by fdessoy-         ###   ########.fr       */
+/*   Updated: 2024/07/05 11:22:48 by fdessoy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ typedef struct s_data
 
 /*					philo.c							*/
 void		philosophize(t_data **data, t_overseer *overseer);
-void		*dinner_for_x(void *data);
 int			monitoring(t_overseer *os);
+void		*dinner_for_x(void *data);
 int			dinner_for_one(t_data *data, t_overseer *overseer);
 
 /*					printer.c						*/
@@ -73,9 +73,8 @@ void		ft_putstr_fd(char *str, int fd);
 int			microphone(t_data *data, t_overseer *overseer, char *action);
 
 /*					routine.c						*/
-int			dying(t_overseer *overseer, t_data *data);
 int			full_belly(t_overseer *overseer, t_data **data);
-int			check_flags(t_overseer *overseer);
+int			dying(t_overseer *overseer, t_data *data);
 int			eat_pray_love(t_data *data, t_overseer *overseer);
 int			try_pick_fork(t_data *data, t_overseer *overseer);
 
@@ -90,13 +89,13 @@ int			no_characters(char **argv);
 /*					utils.c							*/
 int			ft_atoi(const char *str);
 size_t		what_time_is_it(void);
-void		nuka_cola(char *str, t_overseer *overseer, t_data **data);
 void		clearing(t_data **data, t_overseer *overseer);
+void		nuka_cola(char *str, t_overseer *overseer, t_data **data);
 void		ft_usleep(size_t milisecs, t_overseer *overseer);
 
 /*					struct_utils.c					*/
-int			struct_filler(t_data **data, t_overseer *overseer, char **argv);
 int			struct_init(t_data **data, t_overseer *overseer, char **argv);
+int			struct_filler(t_data **data, t_overseer *overseer, char **argv);
 int			fork_me(t_data **data, t_overseer *overseer);
 int			overseer_filler(t_overseer *overseer, char **argv);
 int			init_locks(t_overseer *overseer, t_data **data);
