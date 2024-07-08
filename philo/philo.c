@@ -6,7 +6,7 @@
 /*   By: fdessoy- <fdessoy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 12:26:25 by fdessoy-          #+#    #+#             */
-/*   Updated: 2024/07/05 13:39:18 by fdessoy-         ###   ########.fr       */
+/*   Updated: 2024/07/08 15:45:46 by fdessoy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	*dinner_for_x(void *data)
 	p_data = (t_data *)data;
 	if (dinner_for_one(p_data, p_data->overseer) == 0)
 		return (NULL);
-	if (p_data->philo_id % 2 == 0)
+	if (p_data->philo_id % 2 != 0)
 	{
 		microphone(p_data, p_data->overseer, "is thinking");
 		ft_usleep(p_data->overseer->feed_time / 10, p_data->overseer);
@@ -79,6 +79,6 @@ int	dinner_for_one(t_data *data, t_overseer *overseer)
 		ft_usleep(overseer->death_time, overseer);
 		microphone(data, overseer, "died");
 		return (0);
-	}
+	}                                                                               
 	return (1);
 }
