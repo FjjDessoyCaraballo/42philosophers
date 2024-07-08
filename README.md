@@ -1,6 +1,6 @@
 # Philosophers
 
-##Description of the project
+## Description of the project
 This project is based on the Dining Philosophers Problem and basically is focused on training with simple algorithms and synchronization of repetitive tasks. This excerpt describes the problem in a simple way:
 ```Five philosophers dine together at the same table. Each philosopher has their own plate at the table. There is a fork between each plate. The dish served is a kind of spaghetti which has to be eaten with two forks. Each philosopher can only alternately think and eat. Moreover, a philosopher can only eat their spaghetti when they have both a left and right fork. Thus two forks will only be available when their two nearest neighbors are thinking, not eating. After an individual philosopher finishes eating, they will put down both forks. The problem is how to design a regimen (a concurrent algorithm) such that any philosopher will not starve; i.e., each can forever continue to alternate between eating and thinking, assuming that no philosopher can know when others may want to eat or think (an issue of incomplete information).```
 
@@ -11,7 +11,7 @@ Therefore, the limitations of the philosophers are as following:
 - Philosophers can only get forks that are to their right, beside their own;
 - Philosophers CANNOT duplicate forks;
 
-##Format of philosophers log
+## Format of philosophers log
 Each time there's a state change, there must be a message following a strict script ```timestamp_in_ms no_of_philo action``` has to be outputted in terminal;
 ```timestamp_in_ms X has taken a fork
 timestamp_in_ms X is eating
@@ -19,12 +19,12 @@ timestamp_in_ms X is sleeping
 timestamp_in_ms X is thinking
 timestamp_in_ms X died```
 
-##Skills learned
+## Skills learned
 - Multithreading;
 - Mutexes;
 - Data races;
 
-##Usage
+## Usage
 - Make the files with "make all";
 - Run the program with ```./philo``` and entering four/five arguments:
 	Number of philosophers (max 200);
@@ -34,14 +34,14 @@ timestamp_in_ms X died```
 	Number of times each philosopher must eat (optional);
 - Observe time stamps;
 
-##Result
+## Result
 - Status: Completed
 - Result: 100%
 
-##Contact
+## Contact
 - Email: felipecaraballo91@hotmail.com
 
-##Log:
+## Log:
 ```28.05.2024
 1. In parsing() the loop was not outputting the proper message for negative numbers being inputted. Took out the if statement that was blocking the message;
 2. Git branches were outdated, got all branches up to date;
