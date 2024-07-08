@@ -12,12 +12,12 @@ Therefore, the limitations of the philosophers are as following:
 - Philosophers CANNOT duplicate forks;
 
 ## Format of philosophers log
-Each time there's a state change, there must be a message following a strict script ```timestamp_in_ms no_of_philo action``` has to be outputted in terminal;
 ```timestamp_in_ms X has taken a fork
 timestamp_in_ms X is eating
 timestamp_in_ms X is sleeping
 timestamp_in_ms X is thinking
-timestamp_in_ms X died```
+timestamp_in_ms X died
+```
 
 ## Skills learned
 - Multithreading;
